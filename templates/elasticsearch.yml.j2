@@ -1,0 +1,35 @@
+# {{ ansible_managed }}
+
+{% if es_cluster_name is defined %}
+cluster.name: {{ es_cluster_name }}
+{% endif %}
+node.name: {{ ansible_hostname }}
+{% if es_master_node is defined %}
+node.master: {{ es_master_node|lower }}
+{% endif %}
+{% if es_data_node is defined %}
+node.data: {{ es_data_node|lower }}
+{% endif %}
+{% if es_shards is defined %}
+index.number_of_shards: {{ es_shards }}
+{% endif %}
+{% if es_replicas is defined %}
+index.number_of_replicas: {{ es_replicas }}
+{% endif %}
+bootstrap.mlockall: true
+{% if es_cluster_setup is defined and es_cluster_setup %}
+{%   if es_min_master_nodes is defined %}
+discovery.zen.minimum_master_nodes: {{ es_min_master_nodes }}
+{%   endif %}
+{% endif %}
+{% if es_unicast is defined and es_unicast %}
+discovery.zen.ping.unicast.hosts: {{ es_unicast_hosts }}
+discovery.zen.ping.multicast.enabled: false
+{% endif %}
+{% if es_memory_tuning is defined %}
+{%   for item in es_memory_tuning %}
+{%     if item.set %}
+{{ item.name }}: {{ item.value }}
+{%     endif %}
+{%   endfor %}
+{% endif %}

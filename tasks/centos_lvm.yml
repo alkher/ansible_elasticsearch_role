@@ -1,0 +1,13 @@
+---
+# Preparación de una unidad lógica para los nodos de datos de elasticsearch
+- name: crear un VG
+  lvg: vg={{ es_vgname }} pvs={{ es_disks }} state=present
+
+- name: crear un LV
+  lvol: vg={{ es_vgname }} lv={{ es_lvname }} size=100%FREE state=present
+
+- name: crear el filesystem
+  filesystem: fstype=ext4 dev=/dev/{{ es_vgname }}/{{ es_lvname }}
+
+- name: montar el filesystem
+  mount: name={{ es_mntp }} src=/dev/{{ es_vgname }}/{{ es_lvname }} fstype=ext4 state=mounted

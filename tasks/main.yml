@@ -1,0 +1,10 @@
+---
+# tasks file for elasticsearch
+- include: centos.yml
+  when: ansible_os_family == "RedHat"
+
+- include: configuracion_es.yml
+
+- include: limites_seguridad_es.yml
+
+- include: plugins.yml

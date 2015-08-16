@@ -1,0 +1,19 @@
+---
+# Instalación de elasticsearch en CentOS
+
+- include: centos_lvm.yml
+  when: es_config_lvm is defined and es_config_lvm
+
+- name: añadir la clave del repositorio de elasticsearch
+  rpm_key: key="https://packages.elasticsearch.org/GPG-KEY-elasticsearch" state=present
+
+- name: añadir el repositorio de elasticsearch
+  template: src=es_repositorio.j2 dest=/etc/yum.repos.d/elasticsearch.repo
+
+- name: instalar elasticsearch
+  yum: name={{ item }} state=latest
+  with_items:
+    - elasticsearch
+
+- name: iniciar elasticsearch en el arranque del sistema
+  service: name=elasticsearch state=started enabled=yes
