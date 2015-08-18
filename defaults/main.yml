@@ -9,7 +9,7 @@ es_mntp: /var/lib/elasticsearch # Punto de montaje para el volumen
 # ELASTICSEARCH
 es_version: 1.7 # Versión de elasticsearch
 es_fqdn: localhost # IP, FQDN o localhost (usado en el plugin curator)
-es_cluster_name: LA-ELK # Nombre del cluster
+es_cluster_name: ELK # Nombre del cluster
 es_replicas: 2  # Número de replicas por shard en el cluster (por defecto 1): [Nº Nodos - 1]
 es_shards: 5  # Número de shards por índice (por defecto 5)
 es_data_node: false  # Verdadero si es un nodo de datos dentro del cluster (por defecto true)
