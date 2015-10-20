@@ -1,0 +1,12 @@
+---
+# BIGDESK plugin
+- name: get installed ES plugins list
+  shell: /usr/share/elasticsearch/bin/plugin -l
+  tags: es_kopf
+  register: es_kopf
+  changed_when: false
+
+- name: install kopf plugin
+  shell: /usr/share/elasticsearch/bin/plugin -install lmenezes/elasticsearch-kopf/{[[ kopf_branch ]]|[[ kopf_version ]]}
+  tags: es_kopf
+  when: '"- kopf" not in es_kopf.stdout'

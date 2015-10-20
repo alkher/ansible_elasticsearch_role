@@ -15,6 +15,10 @@
 - include: plugins/bigdesk.yml
   when: install_bigdesk is defined and install_bigdesk
 
+# kopf plugin
+- include: plugins/kopf.yml
+  when: install_kopf is defined and install_kopf
+
 # curator tool
 - include: plugins/centos_curator.yml
   when: install_curator is defined and install_curator and ansible_os_family == "RedHat"
